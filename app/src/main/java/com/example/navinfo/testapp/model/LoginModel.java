@@ -14,6 +14,7 @@ public class LoginModel {
     private IntroduceListener introduceListener;
 
 
+
     public LoginModel(LoginPresenter loginListener) {
         this.loginListener = (LoginListener) loginListener;
         this.introduceListener = (IntroduceListener) loginListener;
