@@ -14,13 +14,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.httpmodule.HttpUtils;
 import com.example.navinfo.testapp.R;
 import com.example.navinfo.testapp.bean.InstroduceRespose;
@@ -84,6 +88,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String str = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
             Log.e("hgl",str+"-----22222");
         }
+
+        mName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String str = mName.getText().toString();
+//                if (str.matches("[a-z]+[A-Z]+[0-9]+\\p{Punct}+")){
+//                    Toast.makeText(MainActivity.this,"四种类型",Toast.LENGTH_SHORT).show();
+//                }
+//
+//                if (str.matches("^[0-9]+$")){
+//                    Toast.makeText(MainActivity.this,"全是数字",Toast.LENGTH_SHORT).show();
+//                }
+                int i =0;
+                if (str.matches(".*[0-9].*")){
+                    i++;
+                }
+
+                if (str.matches(".*[a-z].*")){
+                    i++;
+                }
+                if (str.matches(".*[A-Z].*")){
+                    i++;
+                }
+                if (str.matches(".*\\p{Punct}.*")){
+                    i++;
+                }
+
+                if (i == 0){
+                    Toast.makeText(MainActivity.this,"请输入正确字符",Toast.LENGTH_SHORT).show();
+                }else if (i == 1){
+                    Toast.makeText(MainActivity.this,"一种数据类型",Toast.LENGTH_SHORT).show();
+                }else if (i == 2){
+                    Toast.makeText(MainActivity.this,"两种数据类型",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(MainActivity.this,"三种以上数据类型",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void setText(LoginRespose loginRespose) {
